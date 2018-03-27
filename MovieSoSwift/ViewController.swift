@@ -96,6 +96,10 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(searchResults[indexPath.row].titleName)
+    }
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
