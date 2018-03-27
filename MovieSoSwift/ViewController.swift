@@ -8,7 +8,12 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+
+    var searchTextField: UITextField!
+    var searchButton: UIButton!
+    var resultCV: UICollectionView!
+    var cvLayout: UICollectionViewFlowLayout!
 
     private let resultCellIdentifier = "resultCellID"
     var searchResults = [SearchResultM]()
@@ -17,26 +22,49 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "MovieSoSwift"
-        fetchSearchQuery(searchText: "007")
+        searchTextField = UITextField(frame: CGRect(x: 16, y: 70, width: 260, height: 50))
+        searchTextField.placeholder = "Search movies, actors, directors..."
+        searchTextField.delegate = self
+        searchTextField.borderStyle = UITextBorderStyle.none
+        searchTextField.clearsOnBeginEditing = true
+        self.view.addSubview(searchTextField)
+
+        searchButton = UIButton(frame: CGRect(x: 295, y: 70, width: 90, height: 50))
+        searchButton.backgroundColor = UIColor.orange
+        searchButton.layer.cornerRadius = 6
+        searchButton.setTitle("Search", for: .normal)
+        searchButton.addTarget(self, action: #selector(searchAction), for: .touchUpInside)
+        self.view.addSubview(searchButton)
+
+        cvLayout = UICollectionViewFlowLayout()
+        cvLayout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        cvLayout.itemSize = CGSize(width: 166, height: 250)
+
+        resultCV = UICollectionView(frame: CGRect(x: 0, y: 130,
+                                                  width: self.view.bounds.width,
+                                                  height: self.view.bounds.height - 120),
+                                    collectionViewLayout: cvLayout)
+        resultCV.delegate = self
+        resultCV.dataSource = self
+        resultCV.backgroundColor = UIColor.white
+        resultCV.register(ResultCellView.self, forCellWithReuseIdentifier: resultCellIdentifier)
+        self.view.addSubview(resultCV)
+
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        //layout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        layout.itemSize = CGSize(width: self.view.bounds.width, height: self.view.bounds.height)
-
-        let resultCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-        resultCollectionView.dataSource = self
-        resultCollectionView.delegate = self
-        resultCollectionView.backgroundColor = UIColor.white
-        resultCollectionView.register(ResultCellView.self, forCellWithReuseIdentifier: resultCellIdentifier)
-        self.view.addSubview(resultCollectionView)
-
+    @objc func searchAction(_ sender: UIButton!) {
+        if let userString = searchTextField?.text {
+            fetchSearchQuery(searchText: userString)
+        } else {
+            return
+        }
     }
+
 
     func fetchSearchQuery(searchText: String) {
-        searchResults.removeAll()
+        if searchResults.count > 0 {
+            searchResults.removeAll()
+        }
         apollo.fetch(query: UserSearchQuery(searchString: searchText)) {
             (result, error) in
             guard let data = result?.data?.search else { return }
@@ -53,14 +81,15 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
                 self.searchResults.append(sr)
             }
             // Reload Collection View Data after results
+            self.resultCV.reloadData()
         }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: resultCellIdentifier,
                                                          for: indexPath) as? ResultCellView {
-//            let singleResult = searchResults[indexPath.row]
-//            cell.updateResultCellUI(searchResult: singleResult)
+            let singleResult = searchResults[indexPath.row]
+            cell.updateResultCellUI(searchResult: singleResult)
             return cell
         } else {
             return UICollectionViewCell()
@@ -72,7 +101,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return searchResults.count
     }
 
     override func didReceiveMemoryWarning() {

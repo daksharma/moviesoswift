@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class ResultCellView: UICollectionViewCell {
 
@@ -25,15 +26,28 @@ class ResultCellView: UICollectionViewCell {
     let titleNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Title Name"
+        label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
+    let titleBGView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.white
+        view.alpha = 0.8
+        return view
+    }()
+
     func setupView() {
-        addSubview(posterImageView)
         posterImageView.frame = CGRect(x: 0, y: 0, width: 166, height: 240)
-        addSubview(titleNameLabel)
-        titleNameLabel.frame = CGRect(x: 0, y: 0, width: 166, height: 60)
+        addSubview(posterImageView)
+
+        titleBGView.frame = CGRect(x: 0, y: self.frame.height - 55, width: self.frame.width, height: 50)
+        addSubview(titleBGView)
+
+        titleNameLabel.frame = CGRect(x: 0, y: 0, width: titleBGView.frame.width, height: titleBGView.frame.height)
+        self.titleBGView.addSubview(titleNameLabel)
+
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0]|",
                                                       options: NSLayoutFormatOptions(),
                                                       metrics: nil,
@@ -45,7 +59,8 @@ class ResultCellView: UICollectionViewCell {
     }
 
     func updateResultCellUI(searchResult: SearchResultM) {
-        
+        titleNameLabel.text = searchResult.titleName
+        posterImageView.af_setImage(withURL: URL(string: searchResult.imagePath)!)
     }
 
     required init?(coder aDecoder: NSCoder) {
