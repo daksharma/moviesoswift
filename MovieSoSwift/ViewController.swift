@@ -22,6 +22,11 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "MovieSoSwift"
+        setupSearchTFAndButton()
+        setupResultCV()
+    }
+
+    func setupSearchTFAndButton() {
         searchTextField = UITextField(frame: CGRect(x: 16, y: 70, width: 260, height: 50))
         searchTextField.placeholder = "Search movies, actors, directors..."
         searchTextField.delegate = self
@@ -35,7 +40,9 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         searchButton.setTitle("Search", for: .normal)
         searchButton.addTarget(self, action: #selector(searchAction), for: .touchUpInside)
         self.view.addSubview(searchButton)
+    }
 
+    func setupResultCV() {
         cvLayout = UICollectionViewFlowLayout()
         cvLayout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         cvLayout.itemSize = CGSize(width: 166, height: 250)
@@ -49,7 +56,6 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         resultCV.backgroundColor = UIColor.white
         resultCV.register(ResultCellView.self, forCellWithReuseIdentifier: resultCellIdentifier)
         self.view.addSubview(resultCV)
-
     }
 
     @objc func searchAction(_ sender: UIButton!) {
