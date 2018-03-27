@@ -1,0 +1,20 @@
+PODS:
+  - Alamofire (4.7.0)
+  - AlamofireImage (3.3.0):
+    - Alamofire (~> 4.5)
+  - Apollo (0.8.0):
+    - Apollo/Core (= 0.8.0)
+  - Apollo/Core (0.8.0)
+
+DEPENDENCIES:
+  - AlamofireImage
+  - Apollo
+
+SPEC CHECKSUMS:
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
+  AlamofireImage: 2e784dc5d00f04903a52c1d169181469c805c3df
+  Apollo: 66e0f52289551545adb7ecdd994e713fdbae26eb
+
+PODFILE CHECKSUM: 9b0320c5364444ca4e8d0cd1da20d9fd24152d41
+
+COCOAPODS: 1.4.0
