@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		272E43662069D98400B37682 /* ResultCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E43652069D98400B37682 /* ResultCellView.swift */; };
+		272E43682069DCB700B37682 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E43672069DCB700B37682 /* API.swift */; };
 		272E67852069CE4600D6AA90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E67842069CE4600D6AA90 /* AppDelegate.swift */; };
 		272E67872069CE4600D6AA90 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E67862069CE4600D6AA90 /* ViewController.swift */; };
 		272E678C2069CE4600D6AA90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 272E678B2069CE4600D6AA90 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		272E43652069D98400B37682 /* ResultCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCellView.swift; sourceTree = "<group>"; };
+		272E43672069DCB700B37682 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		272E67812069CE4600D6AA90 /* MovieSoSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieSoSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		272E67842069CE4600D6AA90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		272E67862069CE4600D6AA90 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +159,7 @@
 		272E67B22069D09E00D6AA90 /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
+				272E43672069DCB700B37682 /* API.swift */,
 				272E67B52069D21300D6AA90 /* movieResult.graphql */,
 				272E67B72069D22600D6AA90 /* person.graphql */,
 				272E67B92069D23500D6AA90 /* searchResult.graphql */,
@@ -174,6 +179,7 @@
 		272E67B42069D0AB00D6AA90 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				272E43652069D98400B37682 /* ResultCellView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -517,8 +523,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				272E67BF2069D68000D6AA90 /* SearchResultM.swift in Sources */,
+				272E43662069D98400B37682 /* ResultCellView.swift in Sources */,
 				272E67872069CE4600D6AA90 /* ViewController.swift in Sources */,
 				272E67852069CE4600D6AA90 /* AppDelegate.swift in Sources */,
+				272E43682069DCB700B37682 /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
