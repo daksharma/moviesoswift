@@ -11,8 +11,8 @@ import Apollo
 
 let tmdbImageLink = "https://image.tmdb.org/t/p/w300"
 let noImageLink = "https://assets.tmdb.org/assets/1c4aa0e7695a4eebe9a4d2c34a93bf34/images/no-poster-w600_and_h900_bestv2-v2.png"
-let graphQlEndPoint = "http://127.0.0.1:5000/graphql"
-let apollo = ApolloClient(url: URL(string: graphQlEndPoint)!)
+let graphQlEndPoint = ["http://127.0.0.1:5000/graphql", "https://kotlintainment.appspot.com/graphql"]
+let apollo = ApolloClient(url: URL(string: graphQlEndPoint[0])!)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
