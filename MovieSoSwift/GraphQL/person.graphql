@@ -1,0 +1,31 @@
+query person($id: Int!) {
+    person(id: $id) {
+        id
+        name
+        gender
+        biography
+        birthday
+        deathday
+        homepage
+        profilePath
+        placeOfBirth
+        credits {
+            cast {
+                id
+                name
+                title
+                posterPath
+                profilePath
+            }
+            crew {
+                id
+                name
+                title
+                posterPath
+                profilePath
+                department
+                job
+            }
+        }
+    }
+}

@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import Apollo
+
+let tmdbImageLink = "https://image.tmdb.org/t/p/w300"
+let noImageLink = "https://assets.tmdb.org/assets/1c4aa0e7695a4eebe9a4d2c34a93bf34/images/no-poster-w600_and_h900_bestv2-v2.png"
+let graphQlEndPoint = "http://127.0.0.1:5000/graphql"
+let apollo = ApolloClient(url: URL(string: graphQlEndPoint)!)
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -48,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 

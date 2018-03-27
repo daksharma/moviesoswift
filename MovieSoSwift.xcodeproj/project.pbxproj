@@ -13,6 +13,11 @@
 		272E678F2069CE4600D6AA90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 272E678D2069CE4600D6AA90 /* LaunchScreen.storyboard */; };
 		272E679A2069CE4600D6AA90 /* MovieSoSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E67992069CE4600D6AA90 /* MovieSoSwiftTests.swift */; };
 		272E67A52069CE4700D6AA90 /* MovieSoSwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E67A42069CE4700D6AA90 /* MovieSoSwiftUITests.swift */; };
+		272E67B62069D21300D6AA90 /* movieResult.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 272E67B52069D21300D6AA90 /* movieResult.graphql */; };
+		272E67B82069D22600D6AA90 /* person.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 272E67B72069D22600D6AA90 /* person.graphql */; };
+		272E67BA2069D23500D6AA90 /* searchResult.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 272E67B92069D23500D6AA90 /* searchResult.graphql */; };
+		272E67BC2069D24500D6AA90 /* tvShowResult.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 272E67BB2069D24500D6AA90 /* tvShowResult.graphql */; };
+		272E67BF2069D68000D6AA90 /* SearchResultM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272E67BE2069D68000D6AA90 /* SearchResultM.swift */; };
 		3B928F1C4F877AEEC51F0AE1 /* Pods_MovieSoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89183976AF31CB9E8203216E /* Pods_MovieSoSwift.framework */; };
 		A6597E965306C909ACA0A7DA /* Pods_MovieSoSwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 790F0E1DBD6CB0D3E0C0A91B /* Pods_MovieSoSwiftUITests.framework */; };
 		CA6A13A24FB41F7A9AA8F171 /* Pods_MovieSoSwiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FC78ED373FCBFD23813364 /* Pods_MovieSoSwiftTests.framework */; };
@@ -48,6 +53,11 @@
 		272E67A02069CE4700D6AA90 /* MovieSoSwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieSoSwiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		272E67A42069CE4700D6AA90 /* MovieSoSwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSoSwiftUITests.swift; sourceTree = "<group>"; };
 		272E67A62069CE4700D6AA90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		272E67B52069D21300D6AA90 /* movieResult.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = movieResult.graphql; sourceTree = "<group>"; };
+		272E67B72069D22600D6AA90 /* person.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = person.graphql; sourceTree = "<group>"; };
+		272E67B92069D23500D6AA90 /* searchResult.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = searchResult.graphql; sourceTree = "<group>"; };
+		272E67BB2069D24500D6AA90 /* tvShowResult.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = tvShowResult.graphql; sourceTree = "<group>"; };
+		272E67BE2069D68000D6AA90 /* SearchResultM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultM.swift; sourceTree = "<group>"; };
 		5494ED260D292BEEAD2832F8 /* Pods-MovieSoSwiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieSoSwiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MovieSoSwiftTests/Pods-MovieSoSwiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		790F0E1DBD6CB0D3E0C0A91B /* Pods_MovieSoSwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieSoSwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89183976AF31CB9E8203216E /* Pods_MovieSoSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieSoSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +155,10 @@
 		272E67B22069D09E00D6AA90 /* GraphQL */ = {
 			isa = PBXGroup;
 			children = (
+				272E67B52069D21300D6AA90 /* movieResult.graphql */,
+				272E67B72069D22600D6AA90 /* person.graphql */,
+				272E67B92069D23500D6AA90 /* searchResult.graphql */,
+				272E67BB2069D24500D6AA90 /* tvShowResult.graphql */,
 			);
 			path = GraphQL;
 			sourceTree = "<group>";
@@ -152,6 +166,7 @@
 		272E67B32069D0A500D6AA90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				272E67BE2069D68000D6AA90 /* SearchResultM.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -199,6 +214,7 @@
 				272E677F2069CE4600D6AA90 /* Resources */,
 				79C3B12201D9AD523CA26B04 /* [CP] Embed Pods Frameworks */,
 				9D5ECB6FFD37F324FFA3B894 /* [CP] Copy Pods Resources */,
+				272E67BD2069D33000D6AA90 /* Generate Apollo GraphQL Api */,
 			);
 			buildRules = (
 			);
@@ -303,7 +319,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				272E678F2069CE4600D6AA90 /* LaunchScreen.storyboard in Resources */,
+				272E67B62069D21300D6AA90 /* movieResult.graphql in Resources */,
+				272E67B82069D22600D6AA90 /* person.graphql in Resources */,
+				272E67BA2069D23500D6AA90 /* searchResult.graphql in Resources */,
 				272E678C2069CE4600D6AA90 /* Assets.xcassets in Resources */,
+				272E67BC2069D24500D6AA90 /* tvShowResult.graphql in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +361,20 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		272E67BD2069D33000D6AA90 /* Generate Apollo GraphQL Api */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Apollo GraphQL Api";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "APOLLO_FRAMEWORK_PATH=\"$(eval find $FRAMEWORK_SEARCH_PATHS -name \"Apollo.framework\" -maxdepth 1)\"\n\nif [ -z \"$APOLLO_FRAMEWORK_PATH\" ]; then\necho \"error: Couldn't find Apollo.framework in FRAMEWORK_SEARCH_PATHS; make sure to add the framework to your project.\"\nexit 1\nfi\n\ncd \"${SRCROOT}/${TARGET_NAME}\"\n$APOLLO_FRAMEWORK_PATH/check-and-run-apollo-codegen.sh generate $(find . -name '*.graphql') --schema GraphQL/schema.json --output GraphQL/API.swift";
 		};
 		49D5A40E016AB1724C413666 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -482,6 +516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				272E67BF2069D68000D6AA90 /* SearchResultM.swift in Sources */,
 				272E67872069CE4600D6AA90 /* ViewController.swift in Sources */,
 				272E67852069CE4600D6AA90 /* AppDelegate.swift in Sources */,
 			);

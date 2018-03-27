@@ -1,0 +1,46 @@
+query tvshow($tvId: Int!) {
+    tvseries(tvId: $tvId) {
+        id
+        name
+        overview
+        firstAirDate
+        lastAirDate
+        numberOfSeasons
+        numberOfEpisodes
+        episodeRuntime
+        inProduction
+        homepage
+        posterPath
+        backdropPath
+        networks {
+            id
+            name
+            logoPath
+            originCountry
+        }
+        createdBy {
+            id
+            name
+            profilePath
+        }
+        credits {
+            cast {
+                id
+                name
+                character
+                title
+                profilePath
+                posterPath
+            }
+            crew {
+                id
+                name
+                title
+                posterPath
+                profilePath
+                department
+                job
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+query movie($id: Int!) {
+    movie(id: $id) {
+        id
+        title
+        tagline
+        overview
+        posterPath
+        backdropPath
+        homepage
+        belongsToCollection {
+            id
+            name
+            backdropPath
+            posterPath
+        }
+        budget
+        revenue
+        runtime
+        status
+        releaseDate
+        credits {
+            cast {
+                id
+                title
+                name
+                character
+                profilePath
+                posterPath
+            }
+            crew {
+                id
+                name
+                title
+                department
+                job
+                profilePath
+                posterPath
+            }
+        }
+    }
+}

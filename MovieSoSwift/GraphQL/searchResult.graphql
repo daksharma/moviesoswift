@@ -1,0 +1,9 @@
+query userSearch($searchString: String!){
+    search(searchString: $searchString) {
+        id
+        titleName
+        overview
+        imagePath
+        mediaType
+    }
+}
