@@ -110,10 +110,22 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         print(indexPath.row)
         print(searchResults[indexPath.row].titleName)
         let cell = collectionView.cellForItem(at: indexPath) as? ResultCellView
+        if searchResults[indexPath.row].mediaType == "movie" {
+            showMovieDetailVC(cell: cell!, row: indexPath.row)
+        }
+        if searchResults[indexPath.row].mediaType == "tv" {
+            print("TV Show")
+        }
+        if searchResults[indexPath.row].mediaType == "person" {
+            print("PERSON")
+        }
+    }
+
+    func showMovieDetailVC(cell: ResultCellView, row: Int) {
         let mdVC = MovieDetailViewControler()
-        mdVC.movieTitleLabel.text = searchResults[indexPath.row].titleName
-        mdVC.movieID = searchResults[indexPath.row].id
-        mdVC.posterImage.image = cell?.posterImageView.image
+        mdVC.movieTitleLabel.text = searchResults[row].titleName
+        mdVC.movieID = searchResults[row].id
+        mdVC.posterImage.image = cell.posterImageView.image
         navigationController?.pushViewController(mdVC, animated: true)
     }
 

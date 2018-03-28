@@ -10,10 +10,10 @@ import UIKit
 
 class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    let mdReuseID = "movieDetailIdentifier"
 
 
-    let detailText = ["tagline" : "Tagline",
-                      "overview" : "Overview",
+    let detailText = ["overview" : "Overview",
                       "homepage" : "Homepage",
                       "runtime" : "Runtime",
                       "budget" : "Budget",
@@ -54,6 +54,8 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
 
     var movieDetailTV: UITableView = {
         let tv = UITableView()
+        tv.backgroundColor = UIColor.darkGray
+        tv.allowsSelection = false
         return tv
     }()
 
@@ -66,6 +68,7 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
         self.view.backgroundColor = UIColor.white
         setupPosterAndBackdrop()
         setupMovieDetailTitlesView()
+        setupDetailTableView()
 
         if movieID != nil {
             fetchMovieDetails(movieId: movieID!)
@@ -104,7 +107,13 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func setupDetailTableView() {
-
+        movieDetailTV.frame = CGRect(x: 0, y: (self.view.frame.height/2) + 50,
+                                     width: self.view.frame.width,
+                                     height: (self.view.frame.height/2) - 50)
+        movieDetailTV.delegate = self
+        movieDetailTV.dataSource = self
+        movieDetailTV.register(DetailTVCellView.self, forCellReuseIdentifier: mdReuseID)
+        self.view.addSubview(movieDetailTV)
     }
 
     func setupMovieDetailTitlesView() {
@@ -121,32 +130,53 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 0
+        }
         return 1
     }
 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        if let cell = tableView.dequeueReusableCell(withIdentifier: mdReuseID) as? DetailTVCellView {
+            switch indexPath.section {
+            case 1:
+                cell.titleNameLabel.text = movieDetails?.overview
+            case 2:
+                cell.titleNameLabel.text = movieDetails?.homepage
+            case 3:
+                cell.titleNameLabel.text = movieDetails?.runtime?.description
+            case 4:
+                cell.titleNameLabel.text = movieDetails?.budget?.description
+            case 5:
+                cell.titleNameLabel.text = movieDetails?.revenue?.description
+            case 6:
+                cell.titleNameLabel.text = "NO NO NO"
+            default: break
+            }
+
+            return cell
+        } else {
+            return UITableViewCell()
+        }
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 1:
-            return detailText["tagline"]
-        case 2:
             return detailText["overview"]
-        case 3:
+        case 2:
             return detailText["homepage"]
-        case 4:
+        case 3:
             return detailText["runtime"]
-        case 5:
+        case 4:
             return detailText["budget"]
-        case 6:
+        case 5:
             return detailText["revenue"]
-        case 7:
+        case 6:
             return detailText["credits"]
         default:
-            return "Hmmm"
+            return movieDetails?.tagline ?? "."
         }
     }
 
