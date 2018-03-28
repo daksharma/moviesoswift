@@ -12,5 +12,10 @@ class MovieDetailViewControler: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupMovieDetailView()
+    }
+
+    func setupMovieDetailView() {
+
     }
 }

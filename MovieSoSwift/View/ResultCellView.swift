@@ -13,7 +13,16 @@ class ResultCellView: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        setupCellLayers()
+        setupContentForCell()
+    }
+
+    func setupCellLayers() {
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = 6.0
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowRadius = 2.0
+        self.layer.shadowOpacity = 1.0
     }
 
     let posterImageView: UIImageView = {
@@ -38,7 +47,7 @@ class ResultCellView: UICollectionViewCell {
         return view
     }()
 
-    func setupView() {
+    func setupContentForCell() {
         posterImageView.frame = CGRect(x: 0, y: 0, width: 166, height: 240)
         addSubview(posterImageView)
 

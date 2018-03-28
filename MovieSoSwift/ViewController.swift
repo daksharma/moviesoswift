@@ -24,6 +24,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         navigationItem.title = "MovieSoSwift"
         setupSearchTFAndButton()
         setupResultCV()
+        dismissKeyBoard()
     }
 
     func setupSearchTFAndButton() {
@@ -45,12 +46,15 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     func setupResultCV() {
         cvLayout = UICollectionViewFlowLayout()
         cvLayout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        cvLayout.minimumInteritemSpacing = 8
+        cvLayout.minimumLineSpacing = 8
         cvLayout.itemSize = CGSize(width: 166, height: 250)
 
         resultCV = UICollectionView(frame: CGRect(x: 0, y: 130,
                                                   width: self.view.bounds.width,
                                                   height: self.view.bounds.height - 120),
                                     collectionViewLayout: cvLayout)
+        resultCV.contentInset = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 15.0, right: 5.0)
         resultCV.delegate = self
         resultCV.dataSource = self
         resultCV.backgroundColor = UIColor.white
@@ -61,21 +65,19 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     @objc func searchAction(_ sender: UIButton!) {
         if let userString = searchTextField?.text {
             fetchSearchQuery(searchText: userString)
+            self.view.endEditing(true)
         } else {
             return
         }
     }
 
-
     func fetchSearchQuery(searchText: String) {
-        if searchResults.count > 0 {
-            searchResults.removeAll()
-        }
+        if searchResults.count > 0 { searchResults.removeAll() }
+
         apollo.fetch(query: UserSearchQuery(searchString: searchText)) {
             (result, error) in
             guard let data = result?.data?.search else { return }
             for r in data {
-                print(r?.titleName ?? "No No No")
                 var imagePath: String?
                 imagePath = (r?.imagePath != nil) ?
                     (tmdbImageLink + (r?.imagePath)!) : noImageLink
@@ -113,6 +115,18 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return searchResults.count
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        fetchSearchQuery(searchText: textField.text!)
+        return true
+    }
+
+    func dismissKeyBoard() {
+        self.view.addGestureRecognizer(
+            UITapGestureRecognizer(target: self.view,
+                                   action: #selector(UIView.endEditing(_:))))
     }
 
     override func didReceiveMemoryWarning() {
