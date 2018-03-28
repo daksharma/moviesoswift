@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
 
     var searchTextField: UITextField!
     var searchButton: UIButton!
@@ -18,10 +18,10 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     private let resultCellIdentifier = "resultCellID"
     var searchResults = [SearchResultM]()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "MovieSoSwift"
+
         setupSearchTFAndButton()
         setupResultCV()
         dismissKeyBoard()
@@ -50,14 +50,16 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         cvLayout.minimumLineSpacing = 8
         cvLayout.itemSize = CGSize(width: 166, height: 250)
 
-        resultCV = UICollectionView(frame: CGRect(x: 0, y: 130,
-                                                  width: self.view.bounds.width,
-                                                  height: self.view.bounds.height - 120),
-                                    collectionViewLayout: cvLayout)
+        let cvRect = CGRect(x: 0, y: 130,
+                            width: self.view.bounds.width,
+                            height: self.view.bounds.height - 120)
+
+        resultCV = UICollectionView(frame: cvRect, collectionViewLayout: cvLayout)
         resultCV.contentInset = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 15.0, right: 5.0)
         resultCV.delegate = self
         resultCV.dataSource = self
         resultCV.backgroundColor = UIColor.white
+        resultCV.allowsSelection = true
         resultCV.register(ResultCellView.self, forCellWithReuseIdentifier: resultCellIdentifier)
         self.view.addSubview(resultCV)
     }
@@ -105,8 +107,14 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath.row)
         print(searchResults[indexPath.row].titleName)
-        //navigationController?.pushViewController(, animated: true)
+        let cell = collectionView.cellForItem(at: indexPath) as? ResultCellView
+        let mdVC = MovieDetailViewControler()
+        mdVC.movieTitleLabel.text = searchResults[indexPath.row].titleName
+        mdVC.movieID = searchResults[indexPath.row].id
+        mdVC.posterImage.image = cell?.posterImageView.image
+        navigationController?.pushViewController(mdVC, animated: true)
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -118,15 +126,15 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
         fetchSearchQuery(searchText: textField.text!)
+        self.searchTextField.resignFirstResponder()
         return true
     }
 
     func dismissKeyBoard() {
-        self.view.addGestureRecognizer(
-            UITapGestureRecognizer(target: self.view,
-                                   action: #selector(UIView.endEditing(_:))))
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {

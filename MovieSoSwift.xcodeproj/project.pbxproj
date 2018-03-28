@@ -301,6 +301,11 @@
 					272E67802069CE4600D6AA90 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					272E67942069CE4600D6AA90 = {
 						CreatedOnToolsVersion = 9.2;
