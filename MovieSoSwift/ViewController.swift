@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
+class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
 
     var searchTextField: UITextField = {
         let tf = UITextField()
@@ -38,6 +38,14 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     var resultCV: UICollectionView!
 
+    private let height: CGFloat = 40
+    private let safeBounds: CGFloat = 16
+    private var navBarHeight: CGFloat!
+    private var tfYaxis: CGFloat!
+    private var tvWidth: CGFloat!
+    private var screenHeight: CGFloat!
+    private var screenWidth: CGFloat!
+
 
     private let resultCellIdentifier = "resultCellID"
     var searchResults = [SearchResultM]()
@@ -45,6 +53,11 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "MovieSoSwift"
+        screenWidth = self.view.bounds.width
+        screenHeight = self.view.bounds.height
+        navBarHeight = (navigationController?.navigationBar.bounds.height)!
+        tfYaxis = navBarHeight + 60
+        tvWidth = self.view.bounds.width/1.5
 
         setupSearchTFAndButton()
         setupResultCV()
@@ -52,11 +65,17 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     func setupSearchTFAndButton() {
-        searchTextField.frame =  CGRect(x: 16, y: 70, width: 260, height: 50)
+        searchTextField.frame =  CGRect(x: safeBounds, y: tfYaxis,
+                                        width: tvWidth,
+                                        height: height)
         searchTextField.delegate = self
         self.view.addSubview(searchTextField)
 
-        searchButton.frame = CGRect(x: 295, y: 70, width: 90, height: 50)
+        let sbWidth = screenWidth - tvWidth - safeBounds - safeBounds
+        searchButton.frame = CGRect(x: tvWidth + safeBounds,
+                                    y: tfYaxis,
+                                    width: sbWidth,
+                                    height: height)
         searchButton.addTarget(self, action: #selector(searchAction), for: .touchUpInside)
         self.view.addSubview(searchButton)
     }
@@ -71,9 +90,11 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     func setupResultCV() {
-        let cgRect = CGRect(x: 0, y: 130,
+        let cvYaxis = navBarHeight + (height * 3)
+        let cvHeight = screenHeight - navBarHeight - height
+        let cgRect = CGRect(x: 0, y: cvYaxis,
                             width: self.view.bounds.width,
-                            height: self.view.bounds.height - 120)
+                            height: cvHeight)
 
         resultCV = UICollectionView(frame: cgRect, collectionViewLayout: cvLayout)
         resultCV.backgroundColor = UIColor.white
@@ -118,6 +139,12 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         } else {
             return UICollectionViewCell()
         }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = (screenWidth/2) - 30
+        let cellHeight = (screenHeight/3) - 10
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

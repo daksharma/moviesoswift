@@ -48,23 +48,25 @@ class ResultCellView: UICollectionViewCell {
     }()
 
     func setupContentForCell() {
-        posterImageView.frame = CGRect(x: 0, y: 0, width: 166, height: 240)
+        let cellWidth = self.frame.width
+        let cellHeight = self.frame.height
+        posterImageView.frame = CGRect(x: 0, y: 0, width: cellWidth, height: cellHeight)
         addSubview(posterImageView)
 
-        titleBGView.frame = CGRect(x: 0, y: self.frame.height - 55, width: self.frame.width, height: 50)
+        titleBGView.frame = CGRect(x: 0, y: cellHeight - 50, width: cellWidth, height: 50)
         addSubview(titleBGView)
 
-        titleNameLabel.frame = CGRect(x: 0, y: 0, width: titleBGView.frame.width, height: titleBGView.frame.height)
+        titleNameLabel.frame = CGRect(x: 16, y: 0, width: cellWidth - 16, height: 50)
         self.titleBGView.addSubview(titleNameLabel)
 
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0]|",
-                                                      options: NSLayoutFormatOptions(),
-                                                      metrics: nil,
-                                                      views: ["v0": titleNameLabel]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|",
-                                                      options: NSLayoutFormatOptions(),
-                                                      metrics: nil,
-                                                      views: ["v0": titleNameLabel]))
+//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0]|",
+//                                                      options: NSLayoutFormatOptions(),
+//                                                      metrics: nil,
+//                                                      views: ["v0": titleNameLabel]))
+//        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v0]|",
+//                                                      options: NSLayoutFormatOptions(),
+//                                                      metrics: nil,
+//                                                      views: ["v0": titleNameLabel]))
     }
 
     func updateResultCellUI(searchResult: SearchResultM) {
