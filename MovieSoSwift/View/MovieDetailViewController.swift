@@ -123,6 +123,7 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
         movieDetailTV.frame = CGRect(x: 0, y: (screenHeight/2) + 50,
                                      width: screenWidth,
                                      height: (screenHeight/2) - 50)
+        movieDetailTV.backgroundColor = UIColor.white
         movieDetailTV.layer.cornerRadius = 10.0
         movieDetailTV.delegate = self
         movieDetailTV.dataSource = self
