@@ -10,6 +10,14 @@ import UIKit
 
 class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
 
+    private let height: CGFloat = 40
+    private let safeBounds: CGFloat = 16
+    private var navBarHeight: CGFloat!
+    private var tfYaxis: CGFloat!
+    private var tvWidth: CGFloat!
+    private var screenHeight: CGFloat!
+    private var screenWidth: CGFloat!
+
     var searchTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "Search movies, actors, directors..."
@@ -28,8 +36,8 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     let cvLayout: UICollectionViewFlowLayout = {
         let cvl = UICollectionViewFlowLayout()
-        cvl.sectionInset = UIEdgeInsets(top: 16, left: 16,
-                                        bottom: 16, right: 16)
+        cvl.sectionInset = UIEdgeInsets(top: 10, left: 16,
+                                        bottom: 25, right: 16)
         cvl.minimumLineSpacing = 8
         cvl.minimumInteritemSpacing = 8
         cvl.itemSize = CGSize(width: 166, height: 250)
@@ -37,14 +45,6 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }()
 
     var resultCV: UICollectionView!
-
-    private let height: CGFloat = 40
-    private let safeBounds: CGFloat = 16
-    private var navBarHeight: CGFloat!
-    private var tfYaxis: CGFloat!
-    private var tvWidth: CGFloat!
-    private var screenHeight: CGFloat!
-    private var screenWidth: CGFloat!
 
 
     private let resultCellIdentifier = "resultCellID"
@@ -93,14 +93,15 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
         let cvYaxis = navBarHeight + (height * 3)
         let cvHeight = screenHeight - navBarHeight - height
         let cgRect = CGRect(x: 0, y: cvYaxis,
-                            width: self.view.bounds.width,
+                            width: screenWidth,
                             height: cvHeight)
 
         resultCV = UICollectionView(frame: cgRect, collectionViewLayout: cvLayout)
+        resultCV.layer.cornerRadius = 20.0
         resultCV.backgroundColor = UIColor.white
         resultCV.allowsSelection = true
-        resultCV.contentInset = UIEdgeInsets(top: 10.0, left: 5.0,
-                                             bottom: 15.0, right: 5.0)
+        resultCV.contentInset = UIEdgeInsets(top: 0, left: 0,
+                                             bottom: 10.0, right: 0)
         resultCV.delegate = self
         resultCV.dataSource = self
         resultCV.register(ResultCellView.self, forCellWithReuseIdentifier: resultCellIdentifier)
@@ -143,7 +144,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = (screenWidth/2) - 30
-        let cellHeight = (screenHeight/3) - 10
+        let cellHeight = (screenHeight/3) - 20
         return CGSize(width: cellWidth, height: cellHeight)
     }
 
