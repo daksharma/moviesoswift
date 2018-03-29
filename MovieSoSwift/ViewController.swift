@@ -143,7 +143,7 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = (screenWidth/2) - 30
+        let cellWidth = (screenWidth/2) - 20
         let cellHeight = (screenHeight/3) - 20
         return CGSize(width: cellWidth, height: cellHeight)
     }

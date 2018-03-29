@@ -10,10 +10,17 @@ import UIKit
 
 class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    private let height: CGFloat = 40
+    private let safeBounds: CGFloat = 16
+    private var navBarHeight: CGFloat!
+    private var screenHeight: CGFloat!
+    private var screenWidth: CGFloat!
+
     let mdReuseID = "movieDetailIdentifier"
 
 
-    let detailText = ["overview" : "Overview",
+    let detailText = ["tagline" : "Tagline",
+                      "overview" : "Overview",
                       "homepage" : "Homepage",
                       "runtime" : "Runtime",
                       "budget" : "Budget",
@@ -68,6 +75,9 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        navBarHeight = self.navigationController?.navigationBar.frame.height
+        screenHeight = self.view.bounds.height
+        screenWidth = self.view.bounds.width
         setupPosterAndBackdrop()
         setupMovieDetailTitlesView()
         setupDetailTableView()
@@ -98,20 +108,22 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func setupPosterAndBackdrop() {
-        backDropImage.frame = CGRect(x: 0, y: 0,
-                                     width: self.view.frame.width,
-                                     height: self.view.frame.height/2.5)
+        backDropImage.frame = CGRect(x: 0, y: navBarHeight + 50,
+                                     width: screenWidth,
+                                     height: screenHeight/4)
         self.view.addSubview(backDropImage)
 
         posterImage.frame = CGRect(x: 20, y: 170,
-                                   width: 166, height: 240)
+                                   width: (screenWidth/2) - 20,
+                                   height: (screenHeight/3) - 20)
         self.view.addSubview(posterImage)
     }
 
     func setupDetailTableView() {
-        movieDetailTV.frame = CGRect(x: 0, y: (self.view.frame.height/2) + 50,
-                                     width: self.view.frame.width,
-                                     height: (self.view.frame.height/2) - 50)
+        movieDetailTV.frame = CGRect(x: 0, y: (screenHeight/2) + 50,
+                                     width: screenWidth,
+                                     height: (screenHeight/2) - 50)
+        movieDetailTV.layer.cornerRadius = 10.0
         movieDetailTV.delegate = self
         movieDetailTV.dataSource = self
         movieDetailTV.register(DetailTVCellView.self, forCellReuseIdentifier: mdReuseID)
@@ -119,22 +131,21 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
     }
 
     func setupMovieDetailTitlesView() {
-        movieTitleLabel.frame = CGRect(x: self.posterImage.frame.width + 30,
-                                       y: self.backDropImage.frame.height + 20,
-                                       width: self.view.frame.width/2,
+        let tlXaxis = self.posterImage.frame.width + 30
+        let tlYaxis = navBarHeight + self.backDropImage.frame.height + 50
+        movieTitleLabel.frame = CGRect(x: tlXaxis,
+                                       y: tlYaxis,
+                                       width: screenWidth/2,
                                        height: 60)
         self.view.addSubview(movieTitleLabel)
 
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return detailText.count
+        return detailText.count - 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 0
-        }
         return 1
     }
 
@@ -142,6 +153,8 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: mdReuseID) as? DetailTVCellView {
             switch indexPath.section {
+            case 0:
+                cell.titleNameLabel.text = movieDetails?.tagline
             case 1:
                 cell.titleNameLabel.text = movieDetails?.overview
             case 2:
@@ -165,6 +178,8 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
+        case 0:
+            return detailText["tagline"]
         case 1:
             return detailText["overview"]
         case 2:
@@ -178,7 +193,7 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
         case 6:
             return detailText["credits"]
         default:
-            return movieDetails?.tagline ?? "."
+            return ""
         }
     }
 
