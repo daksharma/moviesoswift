@@ -10,10 +10,34 @@ import UIKit
 
 class MainViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
 
-    var searchTextField: UITextField!
-    var searchButton: UIButton!
+    var searchTextField: UITextField = {
+        let tf = UITextField()
+        tf.placeholder = "Search movies, actors, directors..."
+        tf.borderStyle = UITextBorderStyle.none
+        tf.clearsOnBeginEditing = true
+        return tf
+    }()
+
+    var searchButton: UIButton = {
+        let sb = UIButton()
+        sb.backgroundColor = UIColor.orange
+        sb.layer.cornerRadius = 6
+        sb.setTitle("Search", for: .normal)
+        return sb
+    }()
+
+    let cvLayout: UICollectionViewFlowLayout = {
+        let cvl = UICollectionViewFlowLayout()
+        cvl.sectionInset = UIEdgeInsets(top: 16, left: 16,
+                                        bottom: 16, right: 16)
+        cvl.minimumLineSpacing = 8
+        cvl.minimumInteritemSpacing = 8
+        cvl.itemSize = CGSize(width: 166, height: 250)
+        return cvl
+    }()
+
     var resultCV: UICollectionView!
-    var cvLayout: UICollectionViewFlowLayout!
+
 
     private let resultCellIdentifier = "resultCellID"
     var searchResults = [SearchResultM]()
@@ -28,50 +52,40 @@ class MainViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
     func setupSearchTFAndButton() {
-        searchTextField = UITextField(frame: CGRect(x: 16, y: 70, width: 260, height: 50))
-        searchTextField.placeholder = "Search movies, actors, directors..."
+        searchTextField.frame =  CGRect(x: 16, y: 70, width: 260, height: 50)
         searchTextField.delegate = self
-        searchTextField.borderStyle = UITextBorderStyle.none
-        searchTextField.clearsOnBeginEditing = true
         self.view.addSubview(searchTextField)
 
-        searchButton = UIButton(frame: CGRect(x: 295, y: 70, width: 90, height: 50))
-        searchButton.backgroundColor = UIColor.orange
-        searchButton.layer.cornerRadius = 6
-        searchButton.setTitle("Search", for: .normal)
+        searchButton.frame = CGRect(x: 295, y: 70, width: 90, height: 50)
         searchButton.addTarget(self, action: #selector(searchAction), for: .touchUpInside)
         self.view.addSubview(searchButton)
     }
 
-    func setupResultCV() {
-        cvLayout = UICollectionViewFlowLayout()
-        cvLayout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        cvLayout.minimumInteritemSpacing = 8
-        cvLayout.minimumLineSpacing = 8
-        cvLayout.itemSize = CGSize(width: 166, height: 250)
-
-        let cvRect = CGRect(x: 0, y: 130,
-                            width: self.view.bounds.width,
-                            height: self.view.bounds.height - 120)
-
-        resultCV = UICollectionView(frame: cvRect, collectionViewLayout: cvLayout)
-        resultCV.contentInset = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 15.0, right: 5.0)
-        resultCV.delegate = self
-        resultCV.dataSource = self
-        resultCV.backgroundColor = UIColor.white
-        resultCV.allowsSelection = true
-        resultCV.register(ResultCellView.self, forCellWithReuseIdentifier: resultCellIdentifier)
-        self.view.addSubview(resultCV)
-    }
-
     @objc func searchAction(_ sender: UIButton!) {
-        if let userString = searchTextField?.text {
+        if let userString = searchTextField.text {
             fetchSearchQuery(searchText: userString)
             self.view.endEditing(true)
         } else {
             return
         }
     }
+
+    func setupResultCV() {
+        let cgRect = CGRect(x: 0, y: 130,
+                            width: self.view.bounds.width,
+                            height: self.view.bounds.height - 120)
+
+        resultCV = UICollectionView(frame: cgRect, collectionViewLayout: cvLayout)
+        resultCV.backgroundColor = UIColor.white
+        resultCV.allowsSelection = true
+        resultCV.contentInset = UIEdgeInsets(top: 10.0, left: 5.0,
+                                             bottom: 15.0, right: 5.0)
+        resultCV.delegate = self
+        resultCV.dataSource = self
+        resultCV.register(ResultCellView.self, forCellWithReuseIdentifier: resultCellIdentifier)
+        self.view.addSubview(resultCV)
+    }
+
 
     func fetchSearchQuery(searchText: String) {
         if searchResults.count > 0 { searchResults.removeAll() }

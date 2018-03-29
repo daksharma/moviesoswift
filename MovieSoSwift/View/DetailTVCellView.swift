@@ -15,6 +15,8 @@ class DetailTVCellView: UITableViewCell {
         let label = UILabel()
         label.text = "Title Name"
         label.textColor = UIColor.black
+        label.adjustsFontSizeToFitWidth = true
+        label.sizeToFit()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -23,7 +25,9 @@ class DetailTVCellView: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        titleNameLabel.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        titleNameLabel.frame = CGRect(x: 20, y: 0,
+                                      width: self.frame.width - 20,
+                                      height: self.frame.height)
         self.addSubview(titleNameLabel)
     }
 

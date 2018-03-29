@@ -55,6 +55,8 @@ class MovieDetailViewControler: UIViewController, UITableViewDelegate, UITableVi
     var movieDetailTV: UITableView = {
         let tv = UITableView()
         tv.backgroundColor = UIColor.darkGray
+        tv.rowHeight = UITableViewAutomaticDimension
+        tv.estimatedRowHeight = 150
         tv.allowsSelection = false
         return tv
     }()
